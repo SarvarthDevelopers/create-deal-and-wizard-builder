@@ -97,7 +97,7 @@ export function CreateDealModal({ onClose }: CreateDealModalProps) {
     year?: string;
     odometer?: string;
     indicataStatus?: 'idle' | 'searching' | 'not_found';
-  }>([
+  }[]>([
     { id: '1', category: '', title: '', requestedPayout: '', condition: '', indicataStatus: 'idle' }
   ]);
   const [nextItemId, setNextItemId] = useState(2);
@@ -209,7 +209,7 @@ export function CreateDealModal({ onClose }: CreateDealModalProps) {
 
   let totalRequested = 0;
   let hasAllRequestedPayouts = items.length > 0;
-  items.forEach(item => {
+  items.forEach((item) => {
     const val = parseFloat(item.requestedPayout);
     if (!isNaN(val) && item.requestedPayout.trim() !== '') {
       totalRequested += val;

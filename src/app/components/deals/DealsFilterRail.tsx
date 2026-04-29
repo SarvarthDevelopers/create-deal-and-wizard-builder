@@ -91,7 +91,7 @@ function MultiCheckboxFilter({
   const getCounts = (opt: string) => {
     return deals.filter(d => {
       const val = d[filterKey];
-      if (Array.isArray(val)) return val.includes(opt);
+      if (Array.isArray(val)) return (val as any[]).includes(opt);
       return val === opt;
     }).length;
   };
