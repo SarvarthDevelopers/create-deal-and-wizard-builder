@@ -130,7 +130,7 @@ export function CreateDealModal({ onClose }: CreateDealModalProps) {
 
   const addItem = () => {
     const newId = String(nextItemId);
-    setItems([...items, { id: newId, category: '', title: '', requestedPayout: '', condition: '' }]);
+    setItems([...items, { id: newId, category: '', title: '', requestedPayout: '', condition: '', indicataStatus: 'idle' }]);
     setNextItemId(prev => prev + 1);
     setExpandedItemCards(prev => ({ ...prev, [newId]: true }));
   };
@@ -153,7 +153,11 @@ export function CreateDealModal({ onClose }: CreateDealModalProps) {
         }
 
         // Handle VIN Search Simulation
-        if (field === 'vin' && value.length >= 17 && item.indicataStatus === 'idle') {
+        const currentStatus = updatedItem.indicataStatus || 'idle';
+        
+        if (field === 'vin' && value.length < 17) {
+          updatedItem.indicataStatus = 'idle';
+        } else if (field === 'vin' && value.length >= 17 && currentStatus === 'idle') {
           updatedItem.indicataStatus = 'searching';
           
           // Simulate search delay
